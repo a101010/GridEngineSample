@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GridEngineSample</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+  <script src="/lib/GridEngine.min.js"></script>
+  <script src="/scripts/scenekeys.js"></script>
+  <script src="/scripts/mainmenu.js"></script>
+  <script src="/scripts/world.js"></script>
+  <script src="/scripts/game.js"></script>
+  <script>
+    var conText = {};
+    conText.log = function(text){
+        $("#conText").append(text);
+        $("#console").animate(
+            {scrollTop: $("#conText").height()}, 'slow'
+        );
+    }
+  </script>
+  <style>
+    html, body {
+        height:100%;
+        background: black;
+        padding: 0;
+        margin: 0;
+    }
+    #game {
+        float: left;
+        background: white;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+<div id="game">
+    <div id="gamecanvas"></div>
+</div>
+</body>
+</html>
