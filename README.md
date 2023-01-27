@@ -1,4 +1,4 @@
-===GridEngine Sample===
+# GridEngine Sample
 
 A simple Phaser.io demo using GridEngine. (https://github.com/Annoraaq/grid-engine)
 
