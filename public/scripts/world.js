@@ -79,9 +79,6 @@ function worldPreload(){
     this.load.text(ccMapKey, ccMapUrl);
     this.load.atlas('player', 'sprites/hero.png', 'sprites/hero.json');
     console.log("worldPreload done");
-    (async function() {
-        await new Promise(r => setTimeout(r, 2000));
-    })();
 }
 
 function worldCreate(){
