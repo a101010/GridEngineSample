@@ -18,6 +18,24 @@ function parseMapActionLayer(scene, key) {
             scene.mapActionLayer[key] = layer;
         }
     });
+    scene.doorsprites = [];
+    scene.mapActionLayer[key].objects.forEach(obj => {
+        obj.properties.forEach(prop => {
+            switch(prop.name){
+                case "teleportTo" : {
+                    let teleportTo = mapActionParser.teleportTo(prop);
+                    let {x, y} = mapActionParser.objectCoordinates(obj);
+                    let doorsprite = scene.physics.add.sprite(obj.x + 7, obj.y - 8, 'tiles', 820);
+                    doorsprite.teleportTo = teleportTo;
+                    doorsprite.setSize(12, 12, true);
+                    doorsprite.setDepth(-1); // send to the back, we don't care what it looks like
+                    scene.doorsprites.push(doorsprite);
+                    console.log("found door at (" + x +", " + y + "): " + prop.value);
+                }
+                break;
+            }
+        });
+    });
 }
 
 
@@ -84,28 +102,7 @@ function worldCreate(){
     }
     console.log("end create tilemap layers");
 
-    var doorsprites = [];
-
     parseMapActionLayer(this, mapKey);
-
-    // parse the action layer
-    this.mapActionLayer[mapKey].objects.forEach(obj => {
-        obj.properties.forEach(prop => {
-            switch(prop.name){
-                case "teleportTo" : {
-                    let teleportTo = mapActionParser.teleportTo(prop);
-                    let {x, y} = mapActionParser.objectCoordinates(obj);
-                    let doorsprite = this.physics.add.sprite(obj.x + 7, obj.y - 8, 'tiles', 820);
-                    doorsprite.teleportTo = teleportTo;
-                    doorsprite.setSize(12, 12, true);
-                    doorsprite.setDepth(-1); // send to the back, we don't care what it looks like
-                    doorsprites.push(doorsprite);
-                    console.log("found door at (" + x +", " + y + "): " + prop.value);
-                }
-                break;
-            }
-        });
-    });
 
     console.log("parsed the action layer");
 
@@ -226,7 +223,7 @@ function worldCreate(){
 
     console.log("added player character sprite");
 
-    this.physics.add.collider(this.playerSprite, doorsprites, function(playerSprite, doorsprite) {
+    this.physics.add.collider(this.playerSprite, this.doorsprites, function(playerSprite, doorsprite) {
         if(!scene.posChanged) {
             return;
         }
