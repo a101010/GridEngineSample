@@ -9,15 +9,17 @@ var worldSceneConfig = {
     update: worldUpdate,
 };
 
-async function loadMapActionLayer(key, url) {
-    let fileData = await (await fetch(url)).text();
-    let jsonData = JSON.parse(fileData);
+
+function parseMapActionLayer(scene, key) {
+    let textData = scene.cache.text.get(key);
+    let jsonData = JSON.parse(textData);
     jsonData.layers.forEach(layer => {
         if(layer.name === 'actions') {
-            this.mapActionLayer[key] = layer;
+            scene.mapActionLayer[key] = layer;
         }
     });
 }
+
 
 const aaMapKey = 'aa';
 const aaMapUrl = 'maps/aa.json';
@@ -49,17 +51,19 @@ function worldPreload(){
         return;
     }
     this.mapActionLayer = {};
-    this.loadMapActionLayer = loadMapActionLayer;
     this.load.spritesheet('tiles', 'tilesets/tileset.png', {frameWidth: 16, frameHeight: 16} );
     
     this.load.tilemapTiledJSON(aaMapKey, aaMapUrl);
-    this.loadMapActionLayer(aaMapKey, aaMapUrl);
+    this.load.text(aaMapKey, aaMapUrl);
     this.load.tilemapTiledJSON(bbMapKey, bbMapUrl);
-    this.loadMapActionLayer(bbMapKey, bbMapUrl);
+    this.load.text(bbMapKey, bbMapUrl);
     this.load.tilemapTiledJSON(ccMapKey, ccMapUrl);
-    this.loadMapActionLayer(ccMapKey, ccMapUrl);
+    this.load.text(ccMapKey, ccMapUrl);
     this.load.atlas('player', 'sprites/hero.png', 'sprites/hero.json');
     console.log("worldPreload done");
+    (async function() {
+        await new Promise(r => setTimeout(r, 2000));
+    })();
 }
 
 function worldCreate(){
@@ -81,6 +85,8 @@ function worldCreate(){
     console.log("end create tilemap layers");
 
     var doorsprites = [];
+
+    parseMapActionLayer(this, mapKey);
 
     // parse the action layer
     this.mapActionLayer[mapKey].objects.forEach(obj => {

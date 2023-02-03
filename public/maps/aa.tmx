@@ -11986,12 +11986,12 @@
  <objectgroup id="3" name="actions">
   <object id="1" gid="1990" x="95.75" y="175.75" width="16" height="16">
    <properties>
-    <property name="teleportTo" value="cc:4,9"/>
+    <property name="teleportTo" value="cc:4,7"/>
    </properties>
   </object>
   <object id="2" gid="1990" x="224" y="175.5" width="16" height="16">
    <properties>
-    <property name="teleportTo" value="bb:4,9"/>
+    <property name="teleportTo" value="bb:4,7"/>
    </properties>
   </object>
  </objectgroup>

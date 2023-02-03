@@ -115,7 +115,7 @@
                         {
                          "name":"teleportTo",
                          "type":"string",
-                         "value":"cc:4,9"
+                         "value":"cc:4,7"
                         }],
                  "rotation":0,
                  "type":"",
@@ -133,7 +133,7 @@
                         {
                          "name":"teleportTo",
                          "type":"string",
-                         "value":"bb:4,9"
+                         "value":"bb:4,7"
                         }],
                  "rotation":0,
                  "type":"",
