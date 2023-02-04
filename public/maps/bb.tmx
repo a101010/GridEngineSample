@@ -11936,7 +11936,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="actions" visible="0">
+ <objectgroup id="3" name="actions">
   <object id="1" gid="1990" x="64.125" y="160" width="16" height="16">
    <properties>
     <property name="teleportTo" value="aa:14,11"/>
@@ -11944,7 +11944,7 @@
   </object>
   <object id="2" gid="1990" x="80.125" y="160" width="16" height="16">
    <properties>
-    <property name="teleportTo" value="aa:14"/>
+    <property name="teleportTo" value="aa:14,11"/>
    </properties>
   </object>
  </objectgroup>
