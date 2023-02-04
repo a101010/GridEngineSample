@@ -53,7 +53,7 @@ const mapActionParser = {
         return {
             type: "teleportTo",
             mapKey: val[0],
-            pos: { x: coords[0], y: coords[1]},
+            pos: { x: parseInt(coords[0]), y: parseInt(coords[1])},
         };
     },
     objectCoordinates: function (object) {
