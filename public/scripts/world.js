@@ -6,7 +6,7 @@ var worldSceneConfig = {
     },
     preload: worldPreload,
     create: worldCreate,
-    update: worldUpdate,
+    update: noCursorUpdate,
 };
 
 
@@ -265,36 +265,36 @@ function worldCreate(){
     this.lastPosUpdateTime = this.lastTime;
     this.posChanged = false;
 
+    //this.cursors = this.input.keyboard.createCursorKeys();
 }
 
 function worldUpdate(){
     let currentTime = Date.now();
-    const cursors = this.input.keyboard.createCursorKeys();
     let pos = this.gridEngine.getPosition("player");
     let posChanged = pos.x !== this.lastPos.x || pos.y !== this.lastPos.y;
     this.posChanged = posChanged;
     let isNotMoving = !this.gridEngine.isMoving("player");
     
     // only let a new animation play if either position changed or not moving
-    if (cursors.left.isDown && (isNotMoving || posChanged)) {
+    if (this.cursors.left.isDown && (isNotMoving || posChanged)) {
         if(this.playerSprite.anims.getName() !== "player_walking_left"){
             this.playerSprite.play("player_walking_left");
         }
         this.gridEngine.move("player", "left");
         this.playerSprite.lastDirection = "left";
-    } else if (cursors.right.isDown && (isNotMoving || posChanged)) {
+    } else if (this.cursors.right.isDown && (isNotMoving || posChanged)) {
         if(this.playerSprite.anims.getName() !== "player_walking_right"){
             this.playerSprite.play("player_walking_right");
         }
         this.gridEngine.move("player", "right");
         this.playerSprite.lastDirection = "right";
-    } else if (cursors.up.isDown && (isNotMoving || posChanged)) {
+    } else if (this.cursors.up.isDown && (isNotMoving || posChanged)) {
         if(this.playerSprite.anims.getName() !== "player_walking_up"){
             this.playerSprite.play("player_walking_up");
         }
         this.gridEngine.move("player", "up");
         this.playerSprite.lastDirection = "up";
-    } else if (cursors.down.isDown && (isNotMoving || posChanged)) {
+    } else if (this.cursors.down.isDown && (isNotMoving || posChanged)) {
         if(this.playerSprite.anims.getName() !== "player_walking_down"){
             this.playerSprite.play("player_walking_down");
         }
@@ -306,4 +306,9 @@ function worldUpdate(){
     // else keep playing movement animation until sprite is not moving
     this.lastPos = pos; 
     this.lastTime = currentTime;
+}
+
+function noCursorUpdate(){
+    this.playerSprite.anims.play("player_walking_down");
+    this.gridEngine.move("player", "down");
 }
